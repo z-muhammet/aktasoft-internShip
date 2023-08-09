@@ -2627,11 +2627,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\aktasoft-internShip\\ebokScript\\ebokScript\\ebokScript.csproj",
+      "projectUniqueName": "D:\\aktasoft-internShip\\aktasoft-internShip\\ebokScript\\ebokScript\\ebokScript.csproj",
       "projectName": "ebokScript",
-      "projectPath": "D:\\aktasoft-internShip\\ebokScript\\ebokScript\\ebokScript.csproj",
+      "projectPath": "D:\\aktasoft-internShip\\aktasoft-internShip\\ebokScript\\ebokScript\\ebokScript.csproj",
       "packagesPath": "C:\\Users\\muhammet\\.nuget\\packages\\",
-      "outputPath": "D:\\aktasoft-internShip\\ebokScript\\ebokScript\\obj\\",
+      "outputPath": "D:\\aktasoft-internShip\\aktasoft-internShip\\ebokScript\\ebokScript\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
