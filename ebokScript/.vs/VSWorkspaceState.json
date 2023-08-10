@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ebokScript",
+    "\\ebokScript\\Models",
+    "\\ebokScript\\Views",
+    "\\ebokScript\\Views\\Home"
   ],
+  "SelectedNode": "\\ebokScript\\ebokScript.csproj",
   "PreviewInSolutionExplorer": false
 }

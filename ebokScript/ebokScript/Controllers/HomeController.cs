@@ -23,6 +23,13 @@ namespace ebokScript.Controllers
         {
             return View();
         }
+        public IActionResult books() {
+            return View();
+        }
+        public ActionResult DifferentView()
+        {
+            return View("DifferentView"); // "DifferentView" adlı farklı bir görünümü çağırır
+        }
         public IActionResult message()
         {
 
@@ -43,6 +50,25 @@ namespace ebokScript.Controllers
             }
                 return View(messages);
         }
+        public IActionResult pageViewer() {     
+            SqlConnection sql = new SqlConnection("server=MZRN\\SQLEXPRESS;database=page;Trusted_Connection=True;TrustServerCertificate=true;");
+            SqlCommand cmd = new SqlCommand("select * from page_Table", sql);
+            sql.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<PageScript> pages = new List<PageScript>();
+            while (reader.Read())
+            {
+                pages.Add(
+                new PageScript{
+                    id = Convert.ToInt32(reader["id"]),
+                    Title = reader["Title"].ToString(),
+                    Content = reader["Content"].ToString()
+                });
+            }
+            sql.Close();
+            return View(pages);
+               }
+
         public IActionResult SqlInsert(string name, string message)
         {
             SqlConnection sql = new SqlConnection("server=MZRN\\SQLEXPRESS;database=messageScript;Trusted_Connection=True;TrustServerCertificate=true;");

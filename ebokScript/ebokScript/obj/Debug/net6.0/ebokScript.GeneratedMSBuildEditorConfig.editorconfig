@@ -16,12 +16,20 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\aktasoft-internShip\aktasoft-internShip\ebokScript\ebokScript
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/aktasoft-internShip/aktasoft-internShip/ebokScript/ebokScript/Views/Home/books.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxib29rcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/aktasoft-internShip/aktasoft-internShip/ebokScript/ebokScript/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/aktasoft-internShip/aktasoft-internShip/ebokScript/ebokScript/Views/Home/message.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxtZXNzYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/aktasoft-internShip/aktasoft-internShip/ebokScript/ebokScript/Views/Home/page.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxwYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/aktasoft-internShip/aktasoft-internShip/ebokScript/ebokScript/Views/Home/Privacy.cshtml]
