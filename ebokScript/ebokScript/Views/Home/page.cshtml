@@ -1,18 +1,17 @@
-﻿@model List<ebokScript.Models.PageScript>
+﻿
+@model List<ebokScript.Models.PageScript>
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
-    List<int> id = new List<int>();
+    List<int> idList = new List<int>();
 
     foreach (var item in Model)
     {
-        id.Add(item.id);
+        idList.Add(item.id);
     }
 }
-@for( int i = 0; i < id.Count; i++)
+@for (int i = 0; i < idList.Count; i++)
 {
-      <a href="@Url.Action("ShowPage", "Page", new { id = i })">@i</a>
-      <br />
+    int pageId = idList[i];
+    <a href="@Url.Action("ShowPage", "Page", new { id = pageId })">@i + 1</a>
+    <br />
 }

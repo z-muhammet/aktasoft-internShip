@@ -1,6 +1,7 @@
 ﻿using ebokScript.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace ebokScript.Controllers
@@ -17,6 +18,26 @@ namespace ebokScript.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        public IActionResult page()
+        {
+            SqlConnection sql = new SqlConnection("server=MZRN\\SQLEXPRESS;database=page;Trusted_Connection=True;TrustServerCertificate=true;");
+            SqlCommand cmd = new SqlCommand("select * from page_Table", sql);
+            sql.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<PageScript> pages = new List<PageScript>();
+            while (reader.Read())
+            {
+                pages.Add(
+                new PageScript
+                {
+                    id = Convert.ToInt32(reader["id"]),
+                    Title = reader["Title"].ToString(),
+                    Content = reader["Content"].ToString()
+                });
+            }
+            sql.Close();
+            return View(pages);
         }
 
         public IActionResult Privacy()
@@ -49,6 +70,33 @@ namespace ebokScript.Controllers
                 });
             }
                 return View(messages);
+        }
+
+        public IActionResult ShowPage(int id)
+        {
+            SqlConnection sql = new SqlConnection("server=MZRN\\SQLEXPRESS;database=page;Trusted_Connection=True;TrustServerCertificate=true;");
+            SqlCommand cmd = new SqlCommand("select * from page_Table", sql);
+            sql.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<PageScript> pages = new List<PageScript>();
+            while (reader.Read())
+            {
+                pages.Add(
+                new PageScript
+                {
+                    id = Convert.ToInt32(reader["id"]),
+                    Title = reader["Title"].ToString(),
+                    Content = reader["Content"].ToString()
+                });
+            }
+            sql.Close();
+
+            if (pages == null)
+            {
+                return NotFound();
+            }
+
+            return View(page);
         }
         public IActionResult pageViewer() {     
             SqlConnection sql = new SqlConnection("server=MZRN\\SQLEXPRESS;database=page;Trusted_Connection=True;TrustServerCertificate=true;");
