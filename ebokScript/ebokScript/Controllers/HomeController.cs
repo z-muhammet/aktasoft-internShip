@@ -197,7 +197,7 @@ namespace ebokScript.Controllers
                 context.message.Add(newMessage);
                 context.SaveChanges();
 
-                return RedirectToAction("GetProducts"); // Bu kısmı projenizdeki uygun aksiyon adıyla değiştirin
+                return RedirectToAction("message2");
             }
         }
 
