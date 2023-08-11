@@ -19,28 +19,38 @@ namespace ebokScript.Controllers
         {
             return View();
         }
-        public IActionResult page()
+        public IActionResult page(int id)
         {
-            SqlConnection sql = new SqlConnection("server=MZRN\\SQLEXPRESS;database=page;Trusted_Connection=True;TrustServerCertificate=true;");
-            SqlCommand cmd = new SqlCommand("select * from page_Table", sql);
-            sql.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            List<PageScript> pages = new List<PageScript>();
-            while (reader.Read())
+            var pages = GetPagesFromDatabase();
+            var page = pages.FirstOrDefault(p => p.id == id);
+
+            if (page == null)
             {
-                pages.Add(
-                new PageScript
-                {
-                    id = Convert.ToInt32(reader["id"]),
-                    Title = reader["Title"].ToString(),
-                    Content = reader["Content"].ToString()
-                });
+                return NotFound();
             }
-            sql.Close();
-            return View(pages);
+
+            return View(new List<PageScript> { page });
+
+            /* SqlConnection sql = new SqlConnection("server=MZRN\\SQLEXPRESS;database=page;Trusted_Connection=True;TrustServerCertificate=true;");
+             SqlCommand cmd = new SqlCommand("select * from page_Table", sql);
+             sql.Open();
+             SqlDataReader reader = cmd.ExecuteReader();
+             List<PageScript> pages = new List<PageScript>();
+             while (reader.Read())
+             {
+                 pages.Add(
+                 new PageScript
+                 {
+                     id = Convert.ToInt32(reader["id"]),
+                     Title = reader["Title"].ToString(),
+                     Content = reader["Content"].ToString()
+                 });
+             }
+             sql.Close();
+             return View(pages);*/
         }
 
-        public IActionResult Privacy()
+            public IActionResult Privacy()
         {
             return View();
         }
@@ -51,6 +61,26 @@ namespace ebokScript.Controllers
         {
             return View("DifferentView"); // "DifferentView" adlı farklı bir görünümü çağırır
         }
+        public IActionResult getMessageFromDatabase()
+        {
+            SqlConnection sql = new SqlConnection("server=MZRN\\SQLEXPRESS;database=messageScript;Trusted_Connection=True;TrustServerCertificate=true;");
+            SqlCommand cmd = new SqlCommand("select * from message", sql);
+            sql.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<messageScript> messages = new List<messageScript>();
+            while (reader.Read())
+            {
+                messages.Add(
+                new messageScript
+                {
+                    id = Convert.ToInt32(reader["id"]),
+                    name = reader["name"].ToString(),
+                    message = reader["message"].ToString()
+                });
+            }
+            sql.Close();
+            return View(messages);
+        }   
         public IActionResult message()
         {
 
@@ -69,10 +99,11 @@ namespace ebokScript.Controllers
                     message = reader["message"].ToString()
                 });
             }
-                return View(messages);
-        }
+            sql.Close();
 
-        public IActionResult ShowPage(int id)
+            return View("message", messages);
+        }
+        private List<PageScript> GetPagesFromDatabase()
         {
             SqlConnection sql = new SqlConnection("server=MZRN\\SQLEXPRESS;database=page;Trusted_Connection=True;TrustServerCertificate=true;");
             SqlCommand cmd = new SqlCommand("select * from page_Table", sql);
@@ -90,8 +121,14 @@ namespace ebokScript.Controllers
                 });
             }
             sql.Close();
+            return pages;
+        }
+        public IActionResult ShowPage(int id)
+        {
+            var pages = GetPagesFromDatabase();
+            var page = pages.FirstOrDefault(p => p.id == id);
 
-            if (pages == null)
+            if (page == null)
             {
                 return NotFound();
             }

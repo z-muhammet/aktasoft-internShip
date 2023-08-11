@@ -1,0 +1,18 @@
+﻿
+@model List<ebokScript.Models.PageScript>
+
+@{
+    List<int> idList = new List<int>();
+
+    foreach (var item in Model)
+    {
+        idList.Add(item.id);
+    }
+}
+@for (int i = 0; i < idList.Count; i++)
+{
+    int pageId = idList[i];
+    <a href="@Url.Action("ShowPage", "Page", new { id = pageId })">@i + 1</a>
+    <br />
+}
+@Html.Partial("message");
