@@ -1,4 +1,5 @@
-﻿using ebokScript.Models;
+﻿using ebokScript.Context;
+using ebokScript.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,17 @@ namespace ebokScript.Controllers
         {
             return View();
         }
+            public IActionResult message2()
+            {
+                List<messageScript> messagesScripts = null;
+                using (var messagescontext = new messagesContext())
+                {
+                    messagesScripts = messagescontext.message.ToList();
+                }
+
+                return View(messagesScripts);
+            }
+
         public IActionResult page(int id)
         {
             var pages = GetPagesFromDatabase();
@@ -170,6 +182,23 @@ namespace ebokScript.Controllers
             }
          
             return RedirectToAction("message");
+        }
+        public IActionResult SqlInsert2(string name, string message)
+        {
+
+            using (var context = new messagesContext())
+            {
+                var newMessage = new messageScript()
+                {
+                    name = name,
+                    message = message,
+                };
+
+                context.message.Add(newMessage);
+                context.SaveChanges();
+
+                return RedirectToAction("GetProducts"); // Bu kısmı projenizdeki uygun aksiyon adıyla değiştirin
+            }
         }
 
 
