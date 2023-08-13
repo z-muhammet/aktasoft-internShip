@@ -22,13 +22,13 @@ namespace ebokScript.Controllers
         }
             public IActionResult message2()
             {
-                List<messageScript> messagesScripts = null;
-                using (var messagescontext = new messagesContext())
+                List<Message> messages = null;
+                using (var messagesSC = new messageScriptContext())
                 {
-                    messagesScripts = messagescontext.message.ToList();
+                    messages = messagesSC.Message.ToList();
                 }
 
-                return View(messagesScripts);
+                return View(messages);
             }
 
         public IActionResult page(int id)
@@ -186,16 +186,16 @@ namespace ebokScript.Controllers
         public IActionResult SqlInsert2(string name, string message)
         {
 
-            using (var context = new messagesContext())
+            using (var context = new messageScriptContext())
             {
-                var newMessage = new messageScript()
+                var newMessage = new Message()
                 {
-                    name = name,
-                    message = message,
+                    Name = name,
+                    Message1 = message,
                 };
 
-                context.message.Add(newMessage);
-                context.SaveChanges();
+                context.Message.Add(newMessage);
+                    context.SaveChanges();
 
                 return RedirectToAction("message2");
             }
