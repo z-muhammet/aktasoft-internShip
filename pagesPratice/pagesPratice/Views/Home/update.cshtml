@@ -1,0 +1,25 @@
+﻿@model pagesPratice.Models.book
+
+<div>
+    <div class="bg-info text-center text-light">
+        <h1>add new message</h1>
+    </div>
+    <div style="background-color:rgb(13 202 240 / 20%) ">
+        <!--burada basit bir form olacak gönderenin ismi için textbox mesaj için textarea-->
+        <form>
+            <div class="form-group" style="opacity:1">
+                <label for="exampleFormControlInput1">Name</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="name" placeholder="name">
+            </div>
+            <div class="form-group" style="opacity:1">
+                <label for="exampleFormControlInput2">author</label>
+                <input type="text" class="form-control" id="exampleFormControlInput2" name="author" placeholder="author">
+            </div>
+            <div class="form-group" style="opacity:1">
+                <label for="exampleFormControlInput3">summary</label>
+                <input type="text" class="form-control" id="exampleFormControlInput3" name="p_summary" placeholder="summary">
+            </div>
+            <button type="submit" class="btn btn-primary" formaction="@Url.Action("updateAction")" formmethod="post">Submit</button>
+        </form>
+    </div>
+</div>
