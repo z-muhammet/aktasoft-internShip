@@ -2,11 +2,10 @@
 
 <div>
     <div class="bg-info text-center text-light">
-        <h1>add new message</h1>
+        <h1>add a new book</h1>
     </div>
-    <div style="background-color:rgb(13 202 240 / 20%) ">
-        <!--burada basit bir form olacak gönderenin ismi için textbox mesaj için textarea-->
-        <form>
+    <div style="background-color:rgb(13 202 240 / 20%); text-align:center ">
+        <form style="display:inline-block">
             <div class="form-group" style="opacity:1">
                 <label for="exampleFormControlInput1">Name</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" name="name" placeholder="name">
@@ -21,8 +20,5 @@
             </div>
             <button type="submit" class="btn btn-primary" formaction="@Url.Action("createAction")" formmethod="post">Submit</button>
         </form>
-    </div>
-    <div class="bg-info text-center text-light">
-        <h1>messages</h1>
     </div>
 </div>
