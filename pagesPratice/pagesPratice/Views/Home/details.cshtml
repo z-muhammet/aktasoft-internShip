@@ -1,20 +1,33 @@
 ﻿@model pagesPratice.Models.book
 
-<h2 class="text-center">details <br /> #image</h2>
-<div class="card">
-    <div class="card-body">
-        <b><span style="font-size:25px">name:</span></b>&nbsp;<span>@Model.book_name</span><br /><br />
-        <b><span style="font-size:25px">author:</span></b>&nbsp;<span>@Model.book_author</span><br /><br />
-        <b><span style="font-size:25px">summary:</span></b>&nbsp;<p>@Model.book_summary</p><br /><br /><br />
-    </div>
-    <div class="text-center container">
-        <div class="row">
-            <div class="col-6">
-                <a href="@Url.Action("update", new { id = Model.id })" class="card-link">update</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Diğer stil dosyalarını burada dahil edebilirsiniz -->
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="text-center">
+            <h2>Book Details</h2>
+        </div>
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title bg-black bg-opacity-10">@Model.book_name</h5>
+                <p class="card-text">@Model.book_summary</p>
+                <p class="card-text"><b>Author:</b> @Model.book_author</p>
+                <p class="card-text"><b>Book Page:</b> @Model.book_page</p>
+                <p class="card-text"><b>Category:</b> @Model.book_category1.category_name</p>
+                <p class="card-text"><b>Release Date:</b> @Model.release_date.Value.ToString("dd/MM/yyyy")</p>
             </div>
-            <div class="col-6">
-                <a href="@Url.Action("delete", new { id = Model.id })" class="card-link">delete</a>
+            <div class="card-footer text-center">
+                <a href="@Url.Action("update", new { id = Model.id })" class="btn btn-dark mr-2">Update</a>
+                <a href="@Url.Action("delete", new { id = Model.id })" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
-</div>
+
+</body>
+</html>

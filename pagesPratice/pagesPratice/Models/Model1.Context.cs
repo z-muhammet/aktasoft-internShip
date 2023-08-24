@@ -26,6 +26,6 @@ namespace pagesPratice.Models
         }
     
         public virtual DbSet<book> books { get; set; }
-        public virtual DbSet<page_Table> page_Table { get; set; }
+        public virtual DbSet<book_category> book_category { get; set; }
     }
 }

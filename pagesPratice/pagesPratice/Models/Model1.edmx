@@ -4,7 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="pageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="pageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="book_category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="category_name" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="books">
           <Key>
             <PropertyRef Name="id" />
@@ -13,21 +20,32 @@
           <Property Name="book_name" Type="varchar" MaxLength="255" />
           <Property Name="book_author" Type="varchar" MaxLength="255" />
           <Property Name="book_summary" Type="text" />
+          <Property Name="book_category" Type="int" />
+          <Property Name="book_page" Type="int" />
+          <Property Name="release" Type="bit" />
+          <Property Name="release_date" Type="datetime" />
         </EntityType>
-        <EntityType Name="page_Table">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="255" />
-          <Property Name="Content" Type="nvarchar(max)" />
-        </EntityType>
+        <Association Name="FK_books_category">
+          <End Role="book_category" Type="Self.book_category" Multiplicity="0..1" />
+          <End Role="books" Type="Self.books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="book_category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="books">
+              <PropertyRef Name="book_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="pageModelStoreContainer">
+          <EntitySet Name="book_category" EntityType="Self.book_category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="books" EntityType="Self.books" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="page_Table" EntityType="Self.page_Table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_books_category" Association="Self.FK_books_category">
+            <End Role="book_category" EntitySet="book_category" />
+            <End Role="books" EntitySet="books" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -39,19 +57,40 @@
           <Property Name="book_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="book_author" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="book_summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="page_Table">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="book_category" Type="Int32" />
+          <Property Name="book_page" Type="Int32" />
+          <Property Name="release" Type="Boolean" />
+          <Property Name="release_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="book_category1" Relationship="pageModel.FK_books_category" FromRole="book" ToRole="book_category" />
         </EntityType>
         <EntityContainer Name="pageEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="books" EntityType="Self.book" />
-          <EntitySet Name="page_Table" EntityType="Self.page_Table" />
+          <EntitySet Name="book_category" EntityType="pageModel.book_category" />
+          <AssociationSet Name="FK_books_category" Association="pageModel.FK_books_category">
+            <End Role="book_category" EntitySet="book_category" />
+            <End Role="book" EntitySet="books" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="book_category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="category_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="books" Relationship="pageModel.FK_books_category" FromRole="book_category" ToRole="book" />
+        </EntityType>
+        <Association Name="FK_books_category">
+          <End Type="pageModel.book_category" Role="book_category" Multiplicity="0..1" />
+          <End Type="pageModel.book" Role="book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="book_category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="book">
+              <PropertyRef Name="book_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -61,6 +100,10 @@
           <EntitySetMapping Name="books">
             <EntityTypeMapping TypeName="pageModel.book">
               <MappingFragment StoreEntitySet="books">
+                <ScalarProperty Name="release_date" ColumnName="release_date" />
+                <ScalarProperty Name="release" ColumnName="release" />
+                <ScalarProperty Name="book_page" ColumnName="book_page" />
+                <ScalarProperty Name="book_category" ColumnName="book_category" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="book_name" ColumnName="book_name" />
                 <ScalarProperty Name="book_author" ColumnName="book_author" />
@@ -68,12 +111,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="page_Table">
-            <EntityTypeMapping TypeName="pageModel.page_Table">
-              <MappingFragment StoreEntitySet="page_Table">
+          <EntitySetMapping Name="book_category">
+            <EntityTypeMapping TypeName="pageModel.book_category">
+              <MappingFragment StoreEntitySet="book_category">
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

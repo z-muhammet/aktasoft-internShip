@@ -1,5 +1,5 @@
-﻿@model IEnumerable<pagesPratice.Models.book>
-
+﻿
+@Model pagesPratice.Models.MyViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,36 +10,241 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<form>
+
+    @{ if (ViewBag.dataf != null)
+        {
+            <div class="bg-info container">
+                <h4>filter</h4>
+                <div class="row bg-info p-2">
+                    <div class="bg-light bg-opacity-50 col-5 border-4 border-danger p-2">
+                        <label for="book_category">Choose a category:</label>
+                        <select class="bg-black bg-opacity-10" name="category" id="category">
+                            @{
+                                if (ViewBag.dataf.category == -1)
+                                {
+                                    <option value="-1" selected="selected">all</option>
+                                }
+                                else
+                                {
+                                    <option value="-1">all</option>
+                                }
+                                foreach (var item in Model.Categories)
+                                {
+                                    if (item.id == ViewBag.dataf.category)
+                                    {
+                                        <option value="@item.id" selected="selected">@item.category_name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.id">@item.category_name</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="bg-light bg-opacity-50 col-2 border-3 p-2 border-success">
+                        <label for="book_page">min page:</label>
+                        <input class="bg-opacity-10 bg-black" value="@ViewBag.dataf.page" type="number" id="page" name="page" min="0" max="599">
+                    </div>
+                    <div class="col-4 bg-opacity-50 bg-light ms-3 pt-2 text-center ">
+                        <div>
+                            <label for="order">order by:</label>
+                            <select class="bg-black bg-opacity-10" name="order" id="order">
+
+                                @if (ViewBag.dataf.order == 1)
+                                {
+                                    <option value="1" selected="selected">name</option>
+                                }
+                                else
+                                {
+                                    <option value="1">name</option>
+                                }
+                                @if (ViewBag.dataf.order == 2)
+                                {
+                                    <option value="2" selected="selected">author</option>
+                                }
+                                else
+                                {
+                                    <option value="2">author</option>
+                                }
+                                @if (ViewBag.dataf.order == 3)
+                                {
+                                    <option value="3" selected="selected">page</option>
+                                }
+                                else
+                                {
+                                    <option value="3">page</option>
+                                }
+                                @if (ViewBag.dataf.order == 4)
+                                {
+                                    <option value="4" selected="selected">category</option>
+                                }
+                                else
+                                {
+                                    <option value="4">category</option>
+                                }
+                                @if (ViewBag.dataf.order == 5)
+                                {
+                                    <option value="5" selected="selected">summary</option>
+                                }
+                                else
+                                {
+                                    <option value="5">summary</option>
+                                }
+                            </select> <br>
+                            @if (ViewBag.dataf.sc)
+                            {
+
+
+                                <input type="radio" id="asc" name="sc" value="true" checked>
+
+
+                                <label for="asc">asc</label>
+
+
+                                <input type="radio" id="desc" name="sc" value="false">
+
+
+                                <label for="desc">desc</label>
+                            }
+                            else
+                            {
+                                <input type="radio" id="asc" name="sc" value="true" checked>
+                                <label for="asc">asc</label>
+                                <input type="radio" id="desc" name="sc" value="false" checked>
+                                <label for="desc">desc</label>
+                            }
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p-3">
+                        <button type="submit" class="btn btn-primary" formaction="@Url.Action("Filter")" formmethod="post">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="alert alert-success text-center" role="alert">
+                <h3>filtreleme işlemi başarılı!</h3>
+            </div>
+        }
+        else
+        {
+            <div class="bg-info container">
+                <h4>filter</h4>
+                <div class="row bg-info p-2">
+                    <div class="bg-light bg-opacity-50 col-5 border-4 border-danger p-2">
+                        <label for="book_category">Choose a category:</label>
+                        <select class="bg-black bg-opacity-10" name="category" id="category">
+                            <option value="-1">all</option>
+                            @{
+                                foreach (var item in Model.Categories)
+                                {
+                                    <option value="@item.id">@item.category_name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="bg-light bg-opacity-50 col-2 border-3 p-2 border-success">
+                        <label for="book_page">min page:</label>
+                        <input class="bg-opacity-10 bg-black" value="0" type="number" id="page" name="page" min="0" max="599">
+                    </div>
+                    <div class="col-4 bg-opacity-50 bg-light ms-3 pt-2 text-center ">
+
+                        <div>
+                            <label for="order">order by:</label>
+                            <select class="bg-black bg-opacity-10" name="order" id="order">
+                                <option value="1">name</option>
+                                <option value="2">author</option>
+                                <option value="3">page</option>
+                                <option value="4">category</option>
+                                <option value="5">summary</option>
+                            </select> <br>
+                            <input type="radio" id="asc" name="sc" value="true" checked>
+                            <label for="asc">asc</label>
+                            <input type="radio" id="desc" name="sc" value="false">
+                            <label for="desc">desc</label><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 p-3">
+                        <button type="submit" class="btn btn-primary" formaction="@Url.Action("Filter")" formmethod="post">Submit</button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+
+</form>
+@if (ViewBag.data != null)
+{
+    <br />
+    <div class="alert alert-danger text-center" role="alert">
+        <h3>@ViewBag.data</h3>
+    </div>
+}
+else if (ViewBag.data1 != null)
+{
+    <br />
+    <div class="alert alert-success text-center" role="alert">
+        <h3>@ViewBag.data1</h3>
+    </div>
+
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.book_name)
+            <p>Book Name</p>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.book_author)
+            <p>Book Author</p>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.book_summary)
+            <p>Book Summary</p>
+        </th>
+        <th>
+            <p>Category</p>
+        </th>
+        <th>
+            <p>Book Page</p>
+        </th>
+        <th>
+            <p>book Release Date</p>
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Books)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.book_name)
+                <p>@item.book_name</p>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.book_author)
+                <p>@item.book_author</p>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.book_summary)
+                <p>@item.book_summary</p>
             </td>
             <td>
-                @Html.ActionLink("Edit", "update", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                <p>@item.book_category1.category_name</p>
+            </td>
+            <td>
+                <p>@item.book_page</p>
+            </td>
+            <td>
+                <p> @item.release_date.ToString("dd/MM/yyyy")</p>
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary" onclick="location.href = 'home/update/@item.id';">update</button>
+                <button type="button" class="btn btn-success" onclick="location.href = 'home/Details/@item.id';">Details</button>
+                <button type="button" class="btn btn-danger" onclick="redirectToLink(@item.id)">delete</button>
             </td>
         </tr>
     }

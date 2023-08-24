@@ -12,17 +12,18 @@ namespace pagesPratice.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class book
+    public partial class book_category
     {
-        public int id { get; set; }
-        public string book_name { get; set; }
-        public string book_author { get; set; }
-        public string book_summary { get; set; }
-        public Nullable<int> book_category { get; set; }
-        public Nullable<int> book_page { get; set; }
-        public Nullable<bool> release { get; set; }
-        public Nullable<System.DateTime> release_date { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public book_category()
+        {
+            this.books = new HashSet<book>();
+        }
     
-        public virtual book_category book_category1 { get; set; }
+        public int id { get; set; }
+        public string category_name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<book> books { get; set; }
     }
 }

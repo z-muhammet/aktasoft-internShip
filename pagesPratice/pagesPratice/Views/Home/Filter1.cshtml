@@ -1,0 +1,69 @@
+﻿@model IEnumerable<pagesPratice.Models.book>
+
+@{
+    ViewBag.Title = "Filter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.book_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.book_author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.book_category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.book_page)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.book_summary)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_author)
+            </td>
+            <td>
+                @if (item.book_category == 0)
+                {
+                    <p>comedy</p>
+                }
+                else if (item.book_category == 1)
+                {
+                    <p>fantastic</p>
+                }
+                else
+                {
+                    <p>horror</p>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_page)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_summary)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "update", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+
+    <h2>Filter</h2>
+

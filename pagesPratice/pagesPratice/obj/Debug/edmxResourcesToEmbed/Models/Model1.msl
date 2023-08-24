@@ -4,6 +4,10 @@
     <EntitySetMapping Name="books">
       <EntityTypeMapping TypeName="pageModel.book">
         <MappingFragment StoreEntitySet="books">
+          <ScalarProperty Name="release_date" ColumnName="release_date" />
+          <ScalarProperty Name="release" ColumnName="release" />
+          <ScalarProperty Name="book_page" ColumnName="book_page" />
+          <ScalarProperty Name="book_category" ColumnName="book_category" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="book_name" ColumnName="book_name" />
           <ScalarProperty Name="book_author" ColumnName="book_author" />
@@ -11,12 +15,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="page_Table">
-      <EntityTypeMapping TypeName="pageModel.page_Table">
-        <MappingFragment StoreEntitySet="page_Table">
+    <EntitySetMapping Name="book_category">
+      <EntityTypeMapping TypeName="pageModel.book_category">
+        <MappingFragment StoreEntitySet="book_category">
+          <ScalarProperty Name="category_name" ColumnName="category_name" />
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Content" ColumnName="Content" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

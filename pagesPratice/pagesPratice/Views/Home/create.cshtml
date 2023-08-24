@@ -1,25 +1,43 @@
 ﻿@model List<pagesPratice.Models.book>
-
 <div>
     <div class="bg-info text-center text-light">
-        <h1>add a new book</h1>
+        <h1>create a book</h1>
     </div>
-    <div style="background-color:rgb(13 202 240 / 20%); text-align:center ">
-        <form style="display:inline-block">
-            <div class="form-group" style="opacity:1">
-                <label for="exampleFormControlInput1">Name</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" name="name" placeholder="name">
-            </div>
-            <div class="form-group" style="opacity:1">
-                <label for="exampleFormControlInput2">author</label>
-                <input type="text" class="form-control" id="exampleFormControlInput2" name="author" placeholder="author">
-            </div>
-            <div class="form-group" style="opacity:1">
-                <label for="exampleFormControlInput3">summary</label>
-                <input type="text" class="form-control" id="exampleFormControlInput3" name="p_summary" placeholder="summary">
-            </div>
-            <button type="submit" class="btn btn-primary" formaction="@Url.Action("createAction")" formmethod="post">Submit</button>
-        </form>
+    <div style="background-color:rgb(13 202 240 / 20%) " class="container">
+        <div class="text-center">
+            <form style="display:inline-block">
+                <div class="form-group text-center" style="opacity:1">
+                    <label for="exampleFormControlInput1">Name</label>
+                    <input type="text" class="form-control text-center" id="exampleFormControlInput1" name="name">
+                </div>
+                <div class="form-group text-center align-content-center" style="opacity:1">
+                    <label for="exampleFormControlInput2">author</label>
+                    <input type="text" class="form-control text-center" id="exampleFormControlInput2" name="author">
+                </div>
+                <div class="form-group text-center" style="opacity:1">
+                    <label for="exampleFormControlInput3">summary</label>
+                    <input type="text" class="form-control text-center" id="exampleFormControlInput3" name="p_summary">
+                </div>
+                <div class="form-group text-center" style="opacity:1">
+                    <label for="exampleFormControlInput3">book page</label>
+                    <input type="number" class="form-control text-center" id="exampleFormControlInput3" name="b_page">
+                </div>
+                <p>category</p>
+                <div class="form-group text-center" style="opacity:1">
+                    <select name="cat" id="cat">
+                        <option value="0">comedy</option>
+                        <option value="1">action</option>
+                        <option value="2">horror</option>
+                        <option value="3">kids</option>
+                    </select>
+                </div>
 
+                <div class="form-group text-center" style="opacity:1">
+                    <label for="exampleFormControlInput4">release date</label><br />
+                    <input type="datetime-local" class="form-control text-center" id="exampleFormControlInput4" name="release_date">
+                </div>
+                <button type="submit" class="btn btn-primary" formaction="@Url.Action("createAction")" formmethod="post">Submit</button>
+            </form>
+        </div>
     </div>
 </div>
