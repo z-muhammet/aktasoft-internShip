@@ -217,6 +217,9 @@ else if (ViewBag.data1 != null)
         <th>
             <p>book Release Date</p>
         </th>
+        <th>
+            <p>book Release</p>
+        </th>
         <th></th>
     </tr>
 
@@ -242,8 +245,11 @@ else if (ViewBag.data1 != null)
                 <p> @item.release_date.ToString("dd/MM/yyyy")</p>
             </td>
             <td>
-                <button type="button" class="btn btn-primary" onclick="location.href = 'home/update/@item.id';">update</button>
-                <button type="button" class="btn btn-success" onclick="location.href = 'home/Details/@item.id';">Details</button>
+                <p>@(item.release ? "on the air":"off the air")</p>
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary" onclick="location.href = 'update/@item.id';">update</button>
+                <button type="button" class="btn btn-success" onclick="location.href = 'Details/@item.id';">Details</button>
                 <button type="button" class="btn btn-danger" onclick="redirectToLink(@item.id)">delete</button>
             </td>
         </tr>
